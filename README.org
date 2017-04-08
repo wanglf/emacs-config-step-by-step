@@ -25,6 +25,12 @@ emacs
 #+END_SRC
 
 * Log
+- [2016-04-09]: init-powerline
+- [2016-04-09]: init-magit
 - [2016-04-09]: init-neotree
-- [2016-04-08]: init-elpa, init-appearence, init-evil, init-auto-complete, init-ido
+- [2016-04-08]: init-ido
+- [2016-04-08]: init-auto-complete
+- [2016-04-08]: init-evil
+- [2016-04-08]: init-appearence
+- [2016-04-08]: init-elpa
 
