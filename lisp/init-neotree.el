@@ -1,4 +1,4 @@
-;; auto complete
+;; neotree
 (require-package 'neotree)
 (setq neo-smart-open t)
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
