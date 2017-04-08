@@ -1,0 +1,30 @@
+* Installation guide on CentOS 7
+** Prepare the software depends on
+#+BEGIN_SRC sh
+yum -y install gcc ncurses-devel
+#+END_SRC
+
+** download and install emacs from source
+#+BEGIN_SRC sh
+cd /opt/
+wget -c https://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.gz
+tar xvf emacs-24.5.tar.gz
+ce emacs-24.5
+./configure
+make
+make install
+#+END_SRC
+
+* Setup emacs
+#+BEGIN_SRC sh
+rm -rf ~/.emacs.d
+git clone git@github.com:wanglf/emacs-config-step-by-step.git ~/.emacs.d
+
+# run emacs
+emacs
+#+END_SRC
+
+* Log
+- [2016-04-09]: init-neotree
+- [2016-04-08]: init-elpa, init-appearence, init-evil, init-auto-complete, init-ido
+
