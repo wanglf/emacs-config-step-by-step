@@ -1,0 +1,10 @@
+.smex-items
+ac-comphist.dat
+auto-save-list/
+elpa/
+ido.last
+ido.last~
+init.el~
+recentf
+recentf~
+lisp/*~
