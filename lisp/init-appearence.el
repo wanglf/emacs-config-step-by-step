@@ -5,5 +5,6 @@
 (require-package 'leuven-theme)
 (load-theme 'leuven t)
 (setq org-src-fontify-natively t)
+(setq org-fontify-whole-heading-line t)
 
 (provide 'init-appearence)
