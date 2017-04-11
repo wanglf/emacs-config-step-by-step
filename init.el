@@ -25,6 +25,9 @@
 ;; powerline
 (require 'init-powerline)
 
+;; org-mode
+(require 'init-org)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
