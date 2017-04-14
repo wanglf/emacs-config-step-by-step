@@ -4,6 +4,8 @@ auto-save-list/
 elpa/
 ido.last
 recentf
-lisp/*~
 *.swp
 *~
+\#*
+tramp
+

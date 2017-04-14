@@ -25,6 +25,7 @@ emacs
 #+END_SRC
 
 * Log
+- [2016-04-14]: init-elpy
 - [2016-04-09]: init-powerline
 - [2016-04-09]: init-magit
 - [2016-04-09]: init-neotree
