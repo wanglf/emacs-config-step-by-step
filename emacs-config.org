@@ -1,0 +1,137 @@
+* About
+This is an Org-mode document that serves as my Emacs configuration file.  The standard =init.el= file simply loads the Org babel and org-tangle packages needed to "tangle" this file into a usable form.
+
+=emacs-config.org= is processed to a Lisp file called =emacs-config.el=, and =emacs-config.el= is what Emacs actually uses to configure settings.
+
+* Package system
+#+BEGIN_SRC emacs-lisp
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+         '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+(package-initialize)
+
+;;; On-demand installation of packages
+
+(defun require-package (package &optional min-version no-refresh)
+    "Install given PACKAGE, optionally requiring MIN-VERSION.
+If NO-REFRESH is non-nil, the available package lists will not be
+re-downloaded in order to locate PACKAGE."
+    (if (package-installed-p package min-version)
+    t
+      (if (or (assoc package package-archive-contents) no-refresh)
+      (package-install package)
+    (progn
+      (package-refresh-contents)
+      (require-package package min-version t)))))
+
+
+(defun maybe-require-package (package &optional min-version no-refresh)
+    "Try to install PACKAGE, and return non-nil if successful.
+In the event of failure, return nil and print a warning message.
+Optionally require MIN-VERSION.  If NO-REFRESH is non-nil, the
+available package lists will not be re-downloaded in order to
+locate PACKAGE."
+    (condition-case err
+    (require-package package min-version no-refresh)
+      (error
+       (message "Couldn't install package `%s': %S" package err)
+       nil)))
+
+
+#+END_SRC
+
+* Basic usability
+** appearence
+#+BEGIN_SRC emacs-lisp
+;; hide menu-bar
+(menu-bar-mode -1)
+
+;; set theme to leuven
+(require-package 'leuven-theme)
+(load-theme 'leuven t)
+(setq org-src-fontify-natively t)
+(setq org-fontify-whole-heading-line t)
+#+END_SRC
+
+** evil
+#+BEGIN_SRC emacs-lisp
+(require-package 'evil)
+(setq evil-want-C-i-jump nil)
+(require 'evil)
+(evil-mode )
+#+END_SRC
+
+** auto-complete
+#+BEGIN_SRC emacs-lisp
+(require-package 'auto-complete)
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+#+END_SRC
+
+** ido mode
+#+BEGIN_SRC emacs-lisp
+;; Use C-f during file selection to switch to regular find-file
+(require 'ido)
+(ido-mode t)
+(ido-everywhere t)
+(setq ido-enable-flex-matching t)
+(setq ido-use-filename-at-point nil)
+(setq ido-auto-merge-work-directories-length 0)
+(setq ido-use-virtual-buffers t)
+
+(when (maybe-require-package 'ido-ubiquitous)
+  (ido-ubiquitous-mode t))
+
+;; Use smex to handle M-x
+(when (maybe-require-package 'smex)
+  ;; Change path for ~/.smex-items
+  (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
+  (global-set-key [remap execute-extended-command] 'smex))
+
+(require-package 'idomenu)
+
+;; Allow the same buffer to be open in different frames
+(setq ido-default-buffer-method 'selected-window)
+
+;; http://www.reddit.com/r/emacs/comments/21a4p9/use_recentf_and_ido_together/cgbprem
+(add-hook 'ido-setup-hook (lambda () (define-key ido-completion-map [up] 'previous-history-element)))
+#+END_SRC
+
+** neotree
+#+BEGIN_SRC 
+(require-package 'neotree)
+(setq neo-smart-open t)
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+#+END_SRC
+
+** magit
+#+BEGIN_SRC emacs-lisp
+(require-package 'magit)
+#+END_SRC
+
+** powerline
+#+BEGIN_SRC emacs-lisp
+(require-package 'powerline)
+(require 'powerline)
+(powerline-default-theme)
+#+END_SRC
+
+* org mode
+#+BEGIN_SRC emacs-lisp
+;; line wrap
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+#+END_SRC
+
+** elpy for python
+#+BEGIN_SRC emacs-lisp
+(require-package 'elpy)
+(package-initialize)
+(elpy-enable)
+#+END_SRC
