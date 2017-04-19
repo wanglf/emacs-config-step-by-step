@@ -127,6 +127,28 @@ locate PACKAGE."
 #+BEGIN_SRC emacs-lisp
 ;; line wrap
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+
+;; org-babel
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (ditaa . nil)
+     (dot . t)
+     (emacs-lisp . t)
+     (gnuplot . t)
+     (haskell . t)
+     (latex . t)
+     (ledger . t)
+     (ocaml . nil)
+     (octave . t)
+     (perl . t)
+     (python . t)
+     (ruby . t)
+     (screen . nil)
+     (shell . t)
+     (sql . t)
+     (sqlite . t))))
 #+END_SRC
 
 ** elpy for python
