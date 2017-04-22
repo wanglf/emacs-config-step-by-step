@@ -24,6 +24,15 @@ git clone git@github.com:wanglf/emacs-config-step-by-step.git ~/.emacs.d
 emacs
 #+END_SRC
 
+* Network proxy
+#+BEGIN_SRC emacs-lisp
+(setq url-proxy-services
+      '(("http"     . "proxy.example.com:8080")
+        ("https"    . "proxy.example.com:8080")
+        ("ftp"      . "proxy.example.com:8080")
+        ("no_proxy" . "^.*example.com")))
+#+END_SRC
+
 * Log
 - [2016-04-14]: init-elpy
 - [2016-04-09]: init-powerline
