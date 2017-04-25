@@ -102,7 +102,7 @@ locate PACKAGE."
 #+END_SRC
 
 ** neotree
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
 (require-package 'neotree)
 (setq neo-smart-open t)
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
