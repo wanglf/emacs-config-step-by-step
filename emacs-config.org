@@ -123,6 +123,18 @@ locate PACKAGE."
 (powerline-default-theme)
 #+END_SRC
 
+* IRC Client
+#+BEGIN_SRC emacs-lisp
+;; add following content in ~/.ercpass
+
+;; (setq erc-nick "my-id")  
+;; (setq erc-password "my-pw")
+
+(load "~/.ercpass")
+(erc :server "irc.freenode.net" :port 6667 :nick erc-nick :password erc-password)
+(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#python" "##linux")))
+#+END_SRC
+
 * org mode
 #+BEGIN_SRC emacs-lisp
 ;; line wrap
