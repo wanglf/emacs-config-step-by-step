@@ -38,6 +38,28 @@ emacs
         ("no_proxy" . "^.*example.com")))
 #+END_SRC
 
+* Run emacs as a service
+#+BEGIN_EXAMPLE
+$ cat ~/.config/systemd/user/emacs.service
+[Unit]
+Description=Emacs: the extensible, self-documenting text editor
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/emacs --daemon
+ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
+Restart=always
+
+[Install]
+WantedBy=default.target
+#+END_EXAMPLE
+
+** enable and start
+#+BEGIN_SRC sh
+systemctl enable emacs --user
+systemctl start emacs --user
+#+END_SRC
+
 * Log
 - [2016-04-14]: use org-mode to serve emacs configuration
 - [2016-04-14]: init-elpy
