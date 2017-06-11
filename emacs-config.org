@@ -130,9 +130,9 @@ locate PACKAGE."
 ;; (setq erc-nick "my-id")  
 ;; (setq erc-password "my-pw")
 
-(load "~/.ercpass")
-(erc :server "irc.freenode.net" :port 6667 :nick erc-nick :password erc-password)
-(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#python" "##linux")))
+;; (load "~/.ercpass")
+;; (erc :server "irc.freenode.net" :port 6667 :nick erc-nick :password erc-password)
+;; (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#python" "##linux")))
 #+END_SRC
 
 * org mode
@@ -158,7 +158,7 @@ locate PACKAGE."
      (python . t)
      (ruby . t)
      (screen . nil)
-     (shell . t)
+     (sh . t)
      (sql . t)
      (sqlite . t))))
 #+END_SRC
