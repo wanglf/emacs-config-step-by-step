@@ -44,6 +44,11 @@ locate PACKAGE."
 #+END_SRC
 
 * Basic usability
+** autobackup
+#+BEGIN_SRC emacs-lisp
+(setq make-backup-files nil) ; stop creating backup~ files
+(setq auto-save-default nil) ; stop creating #autosave# files
+#+END_SRC
 ** appearence
 #+BEGIN_SRC emacs-lisp
 ;; hide menu-bar
@@ -137,6 +142,8 @@ locate PACKAGE."
 
 * org mode
 #+BEGIN_SRC emacs-lisp
+(setq org-edit-src-content-indentation 0)
+
 ;; line wrap
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
@@ -171,5 +178,4 @@ locate PACKAGE."
 #+END_SRC
 * Python
 #+BEGIN_SRC emacs-lisp
-(setq python-shell-interpreter "python3")
 #+END_SRC
