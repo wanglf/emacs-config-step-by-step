@@ -40,7 +40,7 @@ emacs
 
 * Run emacs as a service
 #+BEGIN_EXAMPLE
-$ cat ~/.config/systemd/user/emacs.service
+$ cat /etc/systemd/system/emacs.service
 [Unit]
 Description=Emacs: the extensible, self-documenting text editor
 
@@ -54,6 +54,18 @@ Restart=always
 WantedBy=default.target
 #+END_EXAMPLE
 
+#+BEGIN_SRC sh
+sudo systemctl start emacs
+sudo systemctl enable emacs
+#+END_SRC
+
+* Custom configuration
+cat ~/.emacs.d/custom.el
+#+BEGIN_SRC emacs-lisp
+(setq python-shell-interpreter "/usr/bin/python3")
+(setq org-babel-python-command "/usr/bin/python3")
+#+END_SRC
+
 ** enable and start
 #+BEGIN_SRC sh
 systemctl enable emacs --user
@@ -61,14 +73,15 @@ systemctl start emacs --user
 #+END_SRC
 
 * Log
-- [2016-04-14]: use org-mode to serve emacs configuration
-- [2016-04-14]: init-elpy
-- [2016-04-09]: init-powerline
-- [2016-04-09]: init-magit
-- [2016-04-09]: init-neotree
-- [2016-04-08]: init-ido
-- [2016-04-08]: init-auto-complete
-- [2016-04-08]: init-evil
-- [2016-04-08]: init-appearence
-- [2016-04-08]: init-elpa
+- [2017-06-21]: set org-babel-python-command and python-shell-interpreter
+- [2017-04-14]: use org-mode to serve emacs configuration
+- [2017-04-14]: init-elpy
+- [2017-04-09]: init-powerline
+- [2017-04-09]: init-magit
+- [2017-04-09]: init-neotree
+- [2017-04-08]: init-ido
+- [2017-04-08]: init-auto-complete
+- [2017-04-08]: init-evil
+- [2017-04-08]: init-appearence
+- [2017-04-08]: init-elpa
 
