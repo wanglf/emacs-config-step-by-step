@@ -168,14 +168,51 @@ locate PACKAGE."
      (sh . t)
      (sql . t)
      (sqlite . t))))
+
+;; use xelatex to export pdf files
+(setq org-latex-pdf-process
+      '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;; minted
+(setq org-latex-listings 'minted)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+             
+(setq org-latex-minted-options
+      '(("frame" "lines")
+        ("fontsize" "\\scriptsize")
+        ("linenos" "false")
+        ("numbersep" "5pt")
+        ("framesep" "2mm")))
+
 #+END_SRC
 
+* Python
 ** elpy for python
 #+BEGIN_SRC emacs-lisp
-(require-package 'elpy)
-(package-initialize)
+(defvar myPackages
+  '(elpy
+    jedi
+    flycheck
+    py-autopep8))
+
+(mapc #'(lambda (package)
+          (unless (package-installed-p package)
+            (package-install package)))
+      myPackages)
+
 (elpy-enable)
-#+END_SRC
-* Python
-#+BEGIN_SRC emacs-lisp
+(setq elpy-rpc-backend "jedi")
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)                 ; optional
+
+;; use flycheck not flymake with elpy
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; enable autopep8 formatting on save
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 #+END_SRC
