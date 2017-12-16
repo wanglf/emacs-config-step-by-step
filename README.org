@@ -73,6 +73,7 @@ systemctl start emacs --user
 #+END_SRC
 
 * Log
+- [2017-12-16]: org-mode source code with minted package
 - [2017-06-21]: set org-babel-python-command and python-shell-interpreter
 - [2017-04-14]: use org-mode to serve emacs configuration
 - [2017-04-14]: init-elpy
