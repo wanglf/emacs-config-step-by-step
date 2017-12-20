@@ -216,3 +216,9 @@ locate PACKAGE."
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 #+END_SRC
+* GnuPG
+#+BEGIN_SRC emacs-lisp
+(require 'epa-file)
+(custom-set-variables '(epg-gpg-program  "/usr/local/bin/gpg"))
+(epa-file-enable)
+#+END_SRC
