@@ -169,6 +169,17 @@ locate PACKAGE."
      (sql . t)
      (sqlite . t))))
 
+;; latex export class
+(require 'ox-latex)
+(add-to-list 'org-latex-classes
+             '("book"
+               "\\documentclass{book}"
+               ("\\chapter{%s}" . "\\chapter*{%s}")
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+             )
+
 ;; use xelatex to export pdf files
 (setq org-latex-pdf-process
       '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
