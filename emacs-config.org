@@ -140,7 +140,7 @@ locate PACKAGE."
 ;; (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#python" "##linux")))
 #+END_SRC
 
-* org mode
+* Org mode
 #+BEGIN_SRC emacs-lisp
 (setq org-edit-src-content-indentation 0)
 
@@ -199,6 +199,13 @@ locate PACKAGE."
 
 #+END_SRC
 
+* Ledger mode
+#+BEGIN_SRC emacs-lisp
+;; install ledger command line tool first
+;; sudo apt install ledger
+(require-package 'ledger-mode)
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+#+END_SRC
 * Python
 ** elpy for python
 #+BEGIN_SRC emacs-lisp
