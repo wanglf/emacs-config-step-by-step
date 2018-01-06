@@ -246,3 +246,8 @@ locate PACKAGE."
 (custom-set-variables '(epg-gpg-program  "/usr/local/bin/gpg"))
 (epa-file-enable)
 #+END_SRC
+* SimpleClip
+#+BEGIN_SRC emacs-lisp
+(require-package 'simpleclip)
+(simpleclip-mode 1)
+#+END_SRC
