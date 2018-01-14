@@ -7,10 +7,10 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 #+BEGIN_SRC emacs-lisp
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
-         '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
+         '("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  (add-to-list 'package-archives '("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 (package-initialize)
 
 ;;; On-demand installation of packages
