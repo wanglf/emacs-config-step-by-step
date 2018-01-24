@@ -5,42 +5,39 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 
 * Package system
 #+BEGIN_SRC emacs-lisp
-(require 'package) ;; You might already have this line
-(add-to-list 'package-archives
-         '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-(package-initialize)
+(when (>= emacs-major-version 24)
+  (require 'package) 
+  (add-to-list 'package-archives
+               '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
-;;; On-demand installation of packages
+;; import common-lisp
+(require 'cl)
 
-(defun require-package (package &optional min-version no-refresh)
-    "Install given PACKAGE, optionally requiring MIN-VERSION.
-If NO-REFRESH is non-nil, the available package lists will not be
-re-downloaded in order to locate PACKAGE."
-    (if (package-installed-p package min-version)
-    t
-      (if (or (assoc package package-archive-contents) no-refresh)
-      (package-install package)
-    (progn
-      (package-refresh-contents)
-      (require-package package min-version t)))))
+;; add whatever packages you want here
+(defvar wanglifeng/packages '(
+                              leuven-theme
+                              evil
+                              auto-complete
+                              ido-ubiquitous
+                              smex
+                              idomenu
+                              neotree
+                              magit
+                              powerline
+                              ledger-mode
+                              ) "Default packages")
 
+(defun wanglifeng/packages-installed-p()
+  (loop for pkg in wanglifeng/packages
+        when (not (package-installed-p pkg)) do (return nil)
+        finally (return t)))
 
-(defun maybe-require-package (package &optional min-version no-refresh)
-    "Try to install PACKAGE, and return non-nil if successful.
-In the event of failure, return nil and print a warning message.
-Optionally require MIN-VERSION.  If NO-REFRESH is non-nil, the
-available package lists will not be re-downloaded in order to
-locate PACKAGE."
-    (condition-case err
-    (require-package package min-version no-refresh)
-      (error
-       (message "Couldn't install package `%s': %S" package err)
-       nil)))
-
-
+(unless (wanglifeng/packages-installed-p)
+  (message "%s" "Refreshing package database...")
+  (package-refresh-contents)
+  (dolist (pkg wanglifeng/packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg))))
 #+END_SRC
 
 * Basic usability
@@ -49,21 +46,40 @@ locate PACKAGE."
 (setq make-backup-files nil) ; stop creating backup~ files
 (setq auto-save-default nil) ; stop creating #autosave# files
 #+END_SRC
+
 ** appearence
 #+BEGIN_SRC emacs-lisp
-;; hide menu-bar
+;; hide bars
 (menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; set theme to leuven
-(require-package 'leuven-theme)
 (load-theme 'leuven t)
+
+;; org fontify
 (setq org-src-fontify-natively t)
 (setq org-fontify-whole-heading-line t)
+
+;; fullscreen on startup
+(setq initial-frame-alist (quote((fullscreen . maximized))))
+
+;; show match parents
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+
+;; highlight current line
+(global-hl-line-mode t)
+#+END_SRC
+
+** recent files
+#+BEGIN_SRC emacs-lisp
+(require 'recentf)
+(recentf-mode 1)
+(setq rencentf-max-menu-items 25)
 #+END_SRC
 
 ** evil
 #+BEGIN_SRC emacs-lisp
-(require-package 'evil)
 (setq evil-want-C-i-jump nil)
 (require 'evil)
 (evil-mode )
@@ -71,7 +87,6 @@ locate PACKAGE."
 
 ** auto-complete
 #+BEGIN_SRC emacs-lisp
-(require-package 'auto-complete)
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
@@ -88,16 +103,12 @@ locate PACKAGE."
 (setq ido-auto-merge-work-directories-length 0)
 (setq ido-use-virtual-buffers t)
 
-(when (maybe-require-package 'ido-ubiquitous)
-  (ido-ubiquitous-mode t))
+(ido-ubiquitous-mode t)
 
 ;; Use smex to handle M-x
-(when (maybe-require-package 'smex)
   ;; Change path for ~/.smex-items
-  (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
-  (global-set-key [remap execute-extended-command] 'smex))
-
-(require-package 'idomenu)
+(setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
+(global-set-key [remap execute-extended-command] 'smex)
 
 ;; Allow the same buffer to be open in different frames
 (setq ido-default-buffer-method 'selected-window)
@@ -108,7 +119,6 @@ locate PACKAGE."
 
 ** neotree
 #+BEGIN_SRC emacs-lisp
-(require-package 'neotree)
 (setq neo-smart-open t)
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-enter)
@@ -117,13 +127,9 @@ locate PACKAGE."
 #+END_SRC
 
 ** magit
-#+BEGIN_SRC emacs-lisp
-(require-package 'magit)
-#+END_SRC
 
 ** powerline
 #+BEGIN_SRC emacs-lisp
-(require-package 'powerline)
 (require 'powerline)
 (powerline-default-theme)
 #+END_SRC
@@ -209,7 +215,6 @@ locate PACKAGE."
 #+BEGIN_SRC emacs-lisp
 ;; install ledger command line tool first
 ;; sudo apt install ledger
-(require-package 'ledger-mode)
 (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 #+END_SRC
 * Python
