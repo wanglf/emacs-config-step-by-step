@@ -25,6 +25,7 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
                               magit
                               powerline
                               ledger-mode
+                              simpleclip
                               ) "Default packages")
 
 (defun wanglifeng/packages-installed-p()
@@ -250,4 +251,8 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 (require 'epa-file)
 (custom-set-variables '(epg-gpg-program  "/usr/local/bin/gpg"))
 (epa-file-enable)
+#+END_SRC
+* SimpleClip
+#+BEGIN_SRC emacs-lisp
+(simpleclip-mode 1)
 #+END_SRC

@@ -13,3 +13,4 @@ eshell/
 .#*
 custom.el
 .python-environments
+session.*
