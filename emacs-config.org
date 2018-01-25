@@ -135,18 +135,6 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 (powerline-default-theme)
 #+END_SRC
 
-* IRC Client
-#+BEGIN_SRC emacs-lisp
-;; add following content in ~/.ercpass
-
-;; (setq erc-nick "my-id")  
-;; (setq erc-password "my-pw")
-
-;; (load "~/.ercpass")
-;; (erc :server "irc.freenode.net" :port 6667 :nick erc-nick :password erc-password)
-;; (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#python" "##linux")))
-#+END_SRC
-
 * Org mode
 #+BEGIN_SRC emacs-lisp
 (setq org-edit-src-content-indentation 0)
