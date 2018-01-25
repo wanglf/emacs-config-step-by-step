@@ -218,34 +218,6 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 ;; sudo apt install ledger
 (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 #+END_SRC
-* Python
-** elpy for python
-#+BEGIN_SRC emacs-lisp
-(defvar myPackages
-  '(elpy
-    jedi
-    flycheck
-    py-autopep8))
-
-(mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
-      myPackages)
-
-(elpy-enable)
-(setq elpy-rpc-backend "jedi")
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)                 ; optional
-
-;; use flycheck not flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-#+END_SRC
 * GnuPG
 #+BEGIN_SRC emacs-lisp
 (require 'epa-file)
