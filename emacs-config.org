@@ -198,6 +198,15 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
         ("numbersep" "5pt")
         ("framesep" "2mm")))
 
+;; agenda files
+(setq org-agenda-files
+      '("~/git/private-org/task/inbox.org"
+        "~/git/private-org/task/task.org"
+        "~/git/private-org/task/finished.org"))
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!/!)"))))
+
 #+END_SRC
 
 * Ledger mode
