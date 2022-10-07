@@ -18,7 +18,7 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
                               leuven-theme
                               evil
                               auto-complete
-                              ido-ubiquitous
+                              ido-completing-read+
                               smex
                               idomenu
                               neotree
@@ -104,7 +104,7 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 (setq ido-auto-merge-work-directories-length 0)
 (setq ido-use-virtual-buffers t)
 
-(ido-ubiquitous-mode t)
+(ido-ubiquitous-mode 1)
 
 ;; Use smex to handle M-x
   ;; Change path for ~/.smex-items
