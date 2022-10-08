@@ -11,7 +11,8 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
                '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
 ;; import common-lisp
-(require 'cl)
+(require 'cl-lib)
+
 
 ;; add whatever packages you want here
 (defvar wanglifeng/packages '(
@@ -24,12 +25,11 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
                               neotree
                               magit
                               powerline
-                              ledger-mode
                               simpleclip
                               ) "Default packages")
 
 (defun wanglifeng/packages-installed-p()
-  (loop for pkg in wanglifeng/packages
+  (cl-loop for pkg in wanglifeng/packages
         when (not (package-installed-p pkg)) do (return nil)
         finally (return t)))
 
@@ -159,14 +159,12 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
      (gnuplot . t)
      (haskell . t)
      (latex . t)
-     (ledger . t)
      (ocaml . nil)
      (octave . t)
      (perl . t)
      (python . t)
      (ruby . t)
      (screen . nil)
-     (sh . t)
      (sql . t)
      (sqlite . t))))
 
@@ -209,12 +207,6 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 
 #+END_SRC
 
-* Ledger mode
-#+BEGIN_SRC emacs-lisp
-;; install ledger command line tool first
-;; sudo apt install ledger
-(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
-#+END_SRC
 * GnuPG
 #+BEGIN_SRC emacs-lisp
 (require 'epa-file)
