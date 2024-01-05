@@ -142,11 +142,16 @@ This is an Org-mode document that serves as my Emacs configuration file.  The st
 ;; line wrap
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
+;; valign mode: https://github.com/casouri/valign
+(require 'valign)
+(add-hook 'org-mode-hook #'valign-mode)
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-cb" 'org-iswitchb)
 (setq org-log-done 'time)
+(setq org-log-into-drawer t)
 
 ;; org-babel
 (with-eval-after-load 'org
